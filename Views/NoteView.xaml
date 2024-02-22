@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="Note_App.Views.NoteView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:Note_App.ViewModels">
+
+    <ContentView.BindingContext>
+        <viewmodel:NoteViewModel />
+    </ContentView.BindingContext>
+
+    <VerticalStackLayout Padding="15">
+        <Label
+            FontSize="Medium"
+            HorizontalOptions="Start"
+            Text="Welcome to MAUI Note APP" />
+        <Frame Margin="10" BackgroundColor="MediumPurple">
+            <VerticalStackLayout Spacing="15">
+                <Label
+                    FontSize="Small"
+                    HorizontalOptions="Start"
+                    Text="Note Title" />
+                <Entry
+                    FontSize="Medium"
+                    Placeholder="Enter Title"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding NoteTitle}" />
+                <Label
+                    FontSize="Small"
+                    HorizontalOptions="Start"
+                    Text="Note Description" />
+                <Editor
+                    FontSize="Medium"
+                    Placeholder="Enter Description"
+                    PlaceholderColor="LightGray"
+                    Text="{Binding NoteDescription}" />
+                <Button Command="{Binding AddnoteCommand}" Text="Add Note" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <ListView
+            x:Name="LVNotes"
+            ItemSelected="LVNotes_ItemSelected"
+            ItemsSource="{Binding NoteCollection}"
+            SelectedItem="{Binding SelectedNote}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell
+                        Detail="{Binding Description}"
+                        Text="{Binding Title}"
+                        TextColor="MediumPurple" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <HorizontalStackLayout
+            Margin="10"
+            HorizontalOptions="Center"
+            Spacing="30">
+            <Button Command="{Binding DeletenoteCommand}" Text="Delete Note" />
+            <Button Command="{Binding EditNoteCommand}" Text="Edit Note" />
+        </HorizontalStackLayout>
+
+    </VerticalStackLayout>
+</ContentView>
